@@ -1,38 +1,70 @@
 import Cocoa
 
+// DDay 3
+var names = ["Ahmed","Mohammed","Ali","Mark"]
+let ages = [20,22,42,33]
+var tempretures=[15.5,22,30,38]
+
+names[0]
+ages[2]
+tempretures[3]
+names.append("Mostafa")
+
+var scores=Array<Int>()
+scores.append(5)
+scores.append(4)
+print(scores)
+
+var albums=Array<String>()
+albums.append("elemt")
+albums.append("element")
+print(albums)
+
+var albums2=[String]()
+albums2.append("album1")
+
+albums.count
+albums.remove(at: 1)
+print (albums)
+albums.removeAll()
+
+albums.contains("element")
+albums.append("element")
+albums.contains("element")
+
+var cities=["Cairo","Alabalma","Alfayoum","Alexandria","Giza"]
+cities.sort()
+print(cities)
+cities.reverse()
+print(cities)
 
 
-let fileName="profile.jpg"
-print(fileName.hasSuffix(".jpg"))
+let employee=["name":"ahmed","jobTitle":"manager","salary":"2500"]
+print (employee["salary",default: "N/A"])
+print (employee["sal",default: "N/A"])
 
-let number=120
-print(number.isMultiple(of: 3))
+var worldCup = [2022:"Qatar",2018:"Ruissa"]
+print(worldCup[2022,default: "N/A"])
+print(worldCup[2020,default: "N/A"])
+worldCup[2022]="cairo"
+print(worldCup[2022,default: "N/A"])
 
-let isGoodDog=true
-var isGameOver=false
-let isMultiple=number.isMultiple(of: 2)
-isGameOver = !isGameOver
-isGameOver.toggle()
-isGameOver.toggle()
+let people=Set(["ahmed","mohammed","ali","ahmed","Ahmed"])
+print(people)
+var people2 = Set<String>()
+people2.insert("ali")
+people2.insert("Ali")
+people2.insert("Mohammed")
+people2.insert("Mohammed")
+print(people2)
 
-// Join Strings Together
+enum WeekDay{
+    case sunDay
+    case monDay,friDay
+}
 
-let firstWord="First Word"
-let secondWord=" And Second Word Is Combined"
-let combined=firstWord + secondWord
-let quote = "Then he tapped a sign saying \"Believe\" and walked away."
+var day=WeekDay.sunDay
+print(day)
+day = .monDay
+day = .friDay
 
-let longQuote = """
-Then he tapped a sign saying \"Believe\" and walked away.
-"""
-let name = "ahmed"
-let age = 16
-let nameAndAge="his name is \(name) and his age is \(age)"
-"5+5 = \(5+5)"
-
-
-// check Point 1
-
-let celsius=20
-let fahrenhiet=(celsius * 9 / 5) + 32
-print ("The current tempreture is \(celsius) celsuis and \(fahrenhiet) fahrenhiet°")
