@@ -1,151 +1,85 @@
 import Cocoa
-//day 5
-let score = 85
+// day 6
+let platforms = ["macOs","Ios","TvOs"]
 
-if score > 80 {
-    print(true)
+for device in platforms {
+    print ("swift works fine on \(device)")
 }
 
-let age = 25
-
-if age > 18 {
-    print("Youre eligible to vote")
+for i in 1...10 {
+    print ("\(i) * 5 = \(i*5)")
+}
+for i in 1...10 {
+    for j in 1...10 {
+        print ("\(i) * \(j) = \(i*j)")
+    }
 }
 
-let ourName="abcdefz"
-let friendName="abcdefg"
-
-if ourName > friendName {
-    print ("\(ourName) before \(friendName)")
+for i in 1...5 {
+    print("this count from 1 to 5 \(i)")
+}
+for i in 1..<5 {
+    print ("this count from 1 to 4 \(i)")
 }
 
-if ourName < friendName {
-    print("\(friendName) befores \(ourName)")
+var lyric = "Haters Gonna "
+
+for _ in 1...5 {
+    lyric += "hate  "
+}
+print(lyric)
+
+var countdown = 10
+while countdown > 0 {
+    print (countdown)
+    countdown -= 1
 }
 
-var numbers = [1,2,3]
-numbers.append(4)
+var roll = 0
 
-if numbers.count > 3 {
-    numbers.removeFirst()
+while roll != 25 {
+    
+    roll = Int.random(in: 1...100)
+    print ("I rolled \(roll)")
 }
-var userName = "King"
-if userName == "" {
-    userName="Anonymous"
-}
+print ("Baaam")
 
-if userName.count == 0 {
-    userName = "Anonymous"
-}
-if userName.isEmpty {
-    userName = "Anonymous"
-}
-print ("hello \(userName)")
 
-let userAge=18
+let fileNames = ["a.jpg" , "b.txt" , "c.exe", "d.jpg" , "s.json"]
 
-if userAge <= 18 {
-    print("you can vote")
-}else {
-    print ("you cant vote")
-}
-
-if userAge <= 18 {
-    print ("you can vote")
-}else if userAge == 17 {
-    print ("you need 1 year to vote")
-}else {
-    print ("you cant vote")
-}
-let temp = 25
-if temp > 20 && temp < 30 {
-    print("its a nice day")
-}
-let hasParentAgreement = false
-
-if hasParentAgreement || userAge >= 18 {
-    print ("You can Buy this game")
-}
-enum TransportOption {
-    case airplane, helicopter, bicycle, car, scooter
-}
-let transport :TransportOption = .airplane
-
-if transport == .airplane || transport == .helicopter{
-    print ("lets fly")
-}else if transport == .bicycle {
-    print ("i hope theres a bike path")
-}else if transport == .car {
-    print("Time to get stuck in traffic.")
-}else {
-    print ("I will hire a scooter now")
-}
-
-enum Weather{
-    case sun , rain , snow ,wind , unknown
-}
-
-let forecast = Weather.snow
-
-switch forecast {
-case .sun :
-    print ("sunny")
-case .snow :
-    print("Snow")
-case  .rain :
-    print ("rain")
-case .wind :
-    print ("wind")
-case .unknown :
-    print ("Unknown")
+for fileName in fileNames {
+    if !fileName.hasSuffix(".jpg"){
+        continue
+    }
+    print("found image \(fileName)")
 }
 
 
-let city = "cairo"
-switch city{
-case "alex" :
-    print("alex")
-case "cair" :
-    print("cair")
-default :
-    print (city)
+let number1 = 5
+let number2 = 24
+var multiples = [Int]()
+
+for i in 1...100_000{
+    if i.isMultiple(of: number1) && i.isMultiple(of: number2){
+        multiples.append(i)
+        if multiples.count >= 10 {
+            break
+        }
+    }
 }
+print(multiples)
 
-let day = 4
 
-switch day {
-case 4 :
-    print (4)
-case 5 :
-    print(5)
-default :
-    print("default")
+// Chek point 3
+
+for i in 1...100 {
+    if i.isMultiple(of: 3) && i.isMultiple(of: 5){
+        print("FizzBuzz")
+    }else if i.isMultiple(of: 3){
+        print("Fizz")
+    }else if i.isMultiple(of: 5){
+        print("Buzz")
+    }else {
+        print(i)
+    }
 }
-
-switch day {
-case 5 :
-    print("5 then ")
-    fallthrough
-case 4 :
-    print ("4 then ")
-    fallthrough
-case 3 :
-    print ("3")
-default :
-     print("default")
-}
-
-let canVote = age > 18 ? "Yes" : "No"
-
-
-let hour = 15
-
-print (hour > 12 ? "Its After Noon " : "Its before Noon" )
-
-enum Theme {
-    case light , dark , system
-}
-let theme = Theme.dark
-let background = theme == .dark ? "dark" : "Light or system"
-print(background)
-
