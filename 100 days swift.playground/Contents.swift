@@ -1,74 +1,125 @@
 import Cocoa
-// day 8
+// day 9
+func greetUser(){
+    print("Hello User")
+}
+greetUser()
+var greet = greetUser
+greet()
+var greetFunction = {
+    print("Hello User")
+}
+greetFunction()
 
-func printTimesTables(for number: Int, end: Int = 12) {
-    for i in 1...end {
-        print("\(i) x \(number) is \(i * number)")
+let sayHello = {(user:String)->String in
+"Hi \(user)"
+}
+print(sayHello("ahmed"))
+
+let greetCopy :()->Void = greetUser
+greetCopy()
+
+func greetUserCopy(user:String)->String{
+    return "Hello \(user)"
+}
+let sayHelloCopy :(String)->String = greetUserCopy
+print(sayHelloCopy("ahmed"))
+
+let team = ["Gloria", "Suzanne", "Piper", "Tiffany", "Tasha"]
+let sortedTeam = team.sorted()
+print(sortedTeam)
+
+func sortFunction(name1:String , name2:String)->Bool{
+    if (name1=="Piper"){
+        return true
+    }else if(name2=="Piper"){
+        return false
     }
+    return name1>name2
 }
 
-printTimesTables(for: 5, end: 10)
-printTimesTables(for: 5)
+let sortedCopy = team.sorted(by:sortFunction)
+print(sortedCopy)
+let captainFirstTeam = team.sorted(by:{(name1:String,name2:String ) -> Bool in
+    if (name1=="Piper"){
+        return true
+    }else if(name2=="Piper"){
+        return false
+    }
+    return name1>name2
+})
+print(captainFirstTeam)
 
-enum Errors:Error {
-    case short , obvoius , noRoot , OutOfBounds
+var captainFirst=team.sorted{ name1,name2 in
+    if (name1=="Piper"){
+        return true
+    }else if(name2=="Piper"){
+        return false
+    }
+    return name1>name2
+}
+print(captainFirst)
+
+captainFirst = team.sorted{
+    if ($0=="Suzanne"){
+        return true
+    }else if($1=="Suzanne"){
+        return false
+    }
+    return $0>$1
+}
+print(captainFirst)
+captainFirst=team.sorted{$0 > $1}
+print(team.sorted())
+print(captainFirst)
+
+let tOnly=team.filter{$0.hasPrefix("T")}
+print(tOnly)
+let teamMapped=team.map{
+    $0 + " Ahmed"
+}
+print(teamMapped)
+
+func makeArray(size:Int,generator:()->Int)->[Int]{
+    var numbers=[Int]()
+    for i in 0..<size{
+        let newNumber = generator()
+        numbers.append(newNumber)
+    }
+    return numbers
+}
+let arrayResult=makeArray(size:10 ,generator: {
+    Int.random(in: 1...100)
+})
+print(arrayResult)
+let rolls = makeArray(size:10){
+    Int.random(in: 1...1_000)
+}
+print (rolls)
+
+func doTheWork(first:()->Void,second:()->Void,third:()->Void){
+    first()
+    print("first")
+    second()
+    third()
 }
 
-func checkPassword(_ password:String) throws ->String {
-    if(password.count < 8){
-        throw Errors.short
-    }else if(password=="12345678"){
-        throw Errors.obvoius
-    }
-    if password.count < 10 {
-            return "OK"
-        } else if password.count < 12 {
-            return "Good"
-        } else {
-            return "Excellent"
-        }
+doTheWork{
+    print("print first method")
+}second: {
+    print("second method")
+}third: {
+    print("third method")
 }
-do {
-    let result = try checkPassword("12345678")
-    print(result)
-}catch Errors.short{
-    print("Error password iS short ")
-}catch Errors.obvoius{
-    print ("Error password is Obvious")
+//checkpoint 5
+
+let luckyNumbers = [7, 4, 38, 21, 16, 15, 12, 33, 31, 49]
+let solution=luckyNumbers.filter{
+    !$0.isMultiple(of: 2)
+}.sorted(
+).map{
+   String($0)+" Is A Lucky Number"
 }
-
-// checkpoint 4
-// a function that accepts an integer from 1 through 10,000, and returns the integer square root of that number. That sounds easy, but there are some catches:
-//If the number is less than 1 or greater than 10,000 you should throw an “out of bounds” error.
-//If you can’t find the square root, throw a “no root” error.
-
-
-func getSqrt(_ number:Int) throws ->Int{
-    var solution :Int = 0
-    if (number > 10_000 || number < 1){
-        throw Errors.OutOfBounds
-    }
-    if (number == 1){
-        solution = 1
-        return solution
-    }
-    for i in 1...100 {
-        if (i * i == number) {
-            solution = i
-            break
-        }
-    }
-    if(solution==0){
-        throw Errors.noRoot
-    }
-    return solution
-    
-}
-do{
-    let solution = try getSqrt(10000)
-    print(solution)
-}catch Errors.noRoot{
-    print("no root")
-}catch Errors.OutOfBounds{
-    print ("Out of bounds")
+for i in solution{
+    print(i)
 }
