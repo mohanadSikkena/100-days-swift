@@ -1,75 +1,75 @@
 import Cocoa
-// day 10
-struct Album{
-    let title:String
-    let artist:String
-    let year:Int
-    func printSummary(){
-        print("\(title) in \(year) by \(artist)")
+// day 11
+struct BankAccount{
+    private(set) var funds = 0
+    
+    
+    mutating func deposit(amount:Int){
+        funds += amount
     }
-}
-let album:Album=Album(title: "title", artist: "artist", year: 2001)
-album.printSummary()
-
-struct Employee{
-    let name:String
-    var vacationAlocated:Int
-    var vacationTaken=0
-    var vacationRemaining:Int{
-        get {
-            vacationAlocated - vacationTaken
-        }
-        set{
-            vacationAlocated = vacationTaken + newValue
-        }
-    }
-    mutating func takeVacation(days:Int){
-        if vacationRemaining >= days {
-            vacationTaken += days
-            print("Happy vacation")
-            print(vacationRemaining)
-
+    mutating func withdraw(amount:Int)->Bool{
+        if funds >= amount {
+            funds -= amount
+            return true
         }else{
-            print("Oops no remaining vacation days")
+            return false
         }
     }
     
 }
+var account = BankAccount()
+account.deposit(amount: 500)
+let success=account.withdraw(amount: 250)
 
-var employee:Employee = Employee(name: "ahmed", vacationAlocated: 22)
-print (employee.vacationRemaining)
-employee.vacationTaken=10
-print(employee.vacationRemaining)
-employee.vacationRemaining=15
-print(employee.vacationRemaining)
-print(employee.vacationAlocated)
+if success {
+    print("Withdrew money successfully")
+} else {
+    print("Failed to get the money")
+}
+print(account.funds)
 
-struct Game{
-    var score = 0 {
-        didSet {
-            print ("Score now is \(score)")
-        }
-        willSet {
-            print ("Score was \(score)")
-            print("score will be \(newValue)")
-        }
-    }
+
+struct School{
+    static var studentsCount=0
     
+    static func addStudent(student:String){
+        print("\(student) has joined The School")
+        studentsCount+=1
+    }
 }
 
-var game:Game = Game()
-game.score += 10
-game.score += 10
+print(School.studentsCount)
+School.addStudent(student: "Ahmed")
+print(School.studentsCount)
 
-struct Player {
-    let name:String
-    let number:Int
-    
-    init(name: String) {
-        self.name = name
-        number = Int.random(in: 1...99)
+//checkPoint 6
+
+struct Car{
+//    model, number of seats, and current gear,
+//    then add a method to change gears up or down.
+    let model:String
+    let numberOfSeats:Int
+    private(set) var currentGear = 1
+    mutating func gearUp(){
+        if currentGear < 10 {
+            currentGear+=1
+            print("current Gear Is : \(currentGear)")
+        }else{
+            print("Youre at the Maximum Speed")
+        }
     }
-    
+    mutating func gearDown(){
+        if currentGear > 1 {
+            currentGear -= 1
+        }else {
+            print("You cant go down than this")
+        }
+    }
 }
-let player:Player = Player(name: "CR 7")
-print(player.number)
+
+var car:Car=Car(model: "2001", numberOfSeats: 3)
+
+car.gearUp()
+car.gearUp()
+car . gearDown()
+car.gearUp()
