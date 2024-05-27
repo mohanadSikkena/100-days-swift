@@ -1,125 +1,75 @@
 import Cocoa
-// day 9
-func greetUser(){
-    print("Hello User")
-}
-greetUser()
-var greet = greetUser
-greet()
-var greetFunction = {
-    print("Hello User")
-}
-greetFunction()
-
-let sayHello = {(user:String)->String in
-"Hi \(user)"
-}
-print(sayHello("ahmed"))
-
-let greetCopy :()->Void = greetUser
-greetCopy()
-
-func greetUserCopy(user:String)->String{
-    return "Hello \(user)"
-}
-let sayHelloCopy :(String)->String = greetUserCopy
-print(sayHelloCopy("ahmed"))
-
-let team = ["Gloria", "Suzanne", "Piper", "Tiffany", "Tasha"]
-let sortedTeam = team.sorted()
-print(sortedTeam)
-
-func sortFunction(name1:String , name2:String)->Bool{
-    if (name1=="Piper"){
-        return true
-    }else if(name2=="Piper"){
-        return false
+// day 10
+struct Album{
+    let title:String
+    let artist:String
+    let year:Int
+    func printSummary(){
+        print("\(title) in \(year) by \(artist)")
     }
-    return name1>name2
 }
+let album:Album=Album(title: "title", artist: "artist", year: 2001)
+album.printSummary()
 
-let sortedCopy = team.sorted(by:sortFunction)
-print(sortedCopy)
-let captainFirstTeam = team.sorted(by:{(name1:String,name2:String ) -> Bool in
-    if (name1=="Piper"){
-        return true
-    }else if(name2=="Piper"){
-        return false
+struct Employee{
+    let name:String
+    var vacationAlocated:Int
+    var vacationTaken=0
+    var vacationRemaining:Int{
+        get {
+            vacationAlocated - vacationTaken
+        }
+        set{
+            vacationAlocated = vacationTaken + newValue
+        }
     }
-    return name1>name2
-})
-print(captainFirstTeam)
+    mutating func takeVacation(days:Int){
+        if vacationRemaining >= days {
+            vacationTaken += days
+            print("Happy vacation")
+            print(vacationRemaining)
 
-var captainFirst=team.sorted{ name1,name2 in
-    if (name1=="Piper"){
-        return true
-    }else if(name2=="Piper"){
-        return false
+        }else{
+            print("Oops no remaining vacation days")
+        }
     }
-    return name1>name2
+    
 }
-print(captainFirst)
 
-captainFirst = team.sorted{
-    if ($0=="Suzanne"){
-        return true
-    }else if($1=="Suzanne"){
-        return false
+var employee:Employee = Employee(name: "ahmed", vacationAlocated: 22)
+print (employee.vacationRemaining)
+employee.vacationTaken=10
+print(employee.vacationRemaining)
+employee.vacationRemaining=15
+print(employee.vacationRemaining)
+print(employee.vacationAlocated)
+
+struct Game{
+    var score = 0 {
+        didSet {
+            print ("Score now is \(score)")
+        }
+        willSet {
+            print ("Score was \(score)")
+            print("score will be \(newValue)")
+        }
     }
-    return $0>$1
+    
 }
-print(captainFirst)
-captainFirst=team.sorted{$0 > $1}
-print(team.sorted())
-print(captainFirst)
 
-let tOnly=team.filter{$0.hasPrefix("T")}
-print(tOnly)
-let teamMapped=team.map{
-    $0 + " Ahmed"
-}
-print(teamMapped)
+var game:Game = Game()
+game.score += 10
+game.score += 10
 
-func makeArray(size:Int,generator:()->Int)->[Int]{
-    var numbers=[Int]()
-    for i in 0..<size{
-        let newNumber = generator()
-        numbers.append(newNumber)
+struct Player {
+    let name:String
+    let number:Int
+    
+    init(name: String) {
+        self.name = name
+        number = Int.random(in: 1...99)
     }
-    return numbers
+    
 }
-let arrayResult=makeArray(size:10 ,generator: {
-    Int.random(in: 1...100)
-})
-print(arrayResult)
-let rolls = makeArray(size:10){
-    Int.random(in: 1...1_000)
-}
-print (rolls)
-
-func doTheWork(first:()->Void,second:()->Void,third:()->Void){
-    first()
-    print("first")
-    second()
-    third()
-}
-
-doTheWork{
-    print("print first method")
-}second: {
-    print("second method")
-}third: {
-    print("third method")
-}
-//checkpoint 5
-
-let luckyNumbers = [7, 4, 38, 21, 16, 15, 12, 33, 31, 49]
-let solution=luckyNumbers.filter{
-    !$0.isMultiple(of: 2)
-}.sorted(
-).map{
-   String($0)+" Is A Lucky Number"
-}
-for i in solution{
-    print(i)
-}
+let player:Player = Player(name: "CR 7")
+print(player.number)
