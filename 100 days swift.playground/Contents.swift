@@ -1,75 +1,138 @@
 import Cocoa
-// day 11
-struct BankAccount{
-    private(set) var funds = 0
-    
-    
-    mutating func deposit(amount:Int){
-        funds += amount
-    }
-    mutating func withdraw(amount:Int)->Bool{
-        if funds >= amount {
-            funds -= amount
-            return true
-        }else{
-            return false
-        }
-    }
-    
-}
-var account = BankAccount()
-account.deposit(amount: 500)
-let success=account.withdraw(amount: 250)
+// day 12
 
-if success {
-    print("Withdrew money successfully")
-} else {
-    print("Failed to get the money")
-}
-print(account.funds)
-
-
-struct School{
-    static var studentsCount=0
-    
-    static func addStudent(student:String){
-        print("\(student) has joined The School")
-        studentsCount+=1
-    }
-}
-
-print(School.studentsCount)
-School.addStudent(student: "Ahmed")
-print(School.studentsCount)
-
-//checkPoint 6
-
-struct Car{
-//    model, number of seats, and current gear,
-//    then add a method to change gears up or down.
-    let model:String
-    let numberOfSeats:Int
-    private(set) var currentGear = 1
-    mutating func gearUp(){
-        if currentGear < 10 {
-            currentGear+=1
-            print("current Gear Is : \(currentGear)")
-        }else{
-            print("Youre at the Maximum Speed")
-        }
-    }
-    mutating func gearDown(){
-        if currentGear > 1 {
-            currentGear -= 1
-        }else {
-            print("You cant go down than this")
+class Game{
+    var score = 0 {
+        didSet{
+            print ("score Was \(oldValue)")
+            print ("new score Is \(score)")
         }
     }
 }
+let game:Game = Game()
+game.score = 5
 
-var car:Car=Car(model: "2001", numberOfSeats: 3)
+class Employee {
+    let hours:Int
+    
+    init(hours: Int) {
+        self.hours = hours
+    }
+    func printSummary() {
+        print("I work \(hours) hours a day.")
+    }
+    func work(){
+        print("I'm writing code for \(hours) hours.")
+    }
+}
+class Developer : Employee {
+    
+    override func work(){
+        print("I'm A developer writing code for \(hours) hours.")
+    }
+}
+class Manager : Employee {
+    override func work() {
+            print("I'm A manager going to meetings for \(hours) hours.")
+        }
+}
+let ahmed = Developer(hours: 10)
+let mohammed = Manager(hours: 5)
+ahmed.work()
+mohammed.work()
+ahmed.printSummary()
+mohammed.printSummary()
 
-car.gearUp()
-car.gearUp()
-car . gearDown()
-car.gearUp()
+class Vechile{
+    let isElectric :Bool
+    init(isElectric: Bool) {
+        self.isElectric = isElectric
+    }
+}
+
+class Car : Vechile {
+    let isComfort :Bool
+    init(isComfort: Bool ,isElectric:Bool) {
+        self.isComfort = isComfort
+        super.init(isElectric: isElectric)
+    }
+}
+
+let car :Car = Car(isComfort: true, isElectric:true)
+
+class User {
+    var username = "Anonymous"
+    init(username: String = "Anonymous") {
+        self.username = username
+        print("\(username) created")
+    }
+    deinit{
+        print("\(username) : Im Dead")
+    }
+}
+let user1 : User = User()
+
+//user1.username = "ahmed"
+
+for i in 1...3{
+    let newUser = User()
+}
+var users = [User]()
+
+for i in 1 ... 5 {
+    let user = User()
+    users.append(user)
+}
+users.removeAll()
+
+
+//Checkpoint 7
+
+
+
+class Animal {
+    let legs :Int
+    init(legs: Int) {
+        self.legs = legs
+    }
+    func speak(){
+        print("Animal Is Speaking Now")
+    }
+}
+
+class Dog : Animal{
+    override func speak() {
+        print("Dog Is Speaking Now")
+    }
+}
+class Corgi : Dog {
+    override func speak() {
+        print ("Corgi Is Speaking Now")
+    }
+}
+class Poodle : Dog {
+    override func speak() {
+        print ("Poodle Is Speaking Now")
+    }
+}
+
+class Cat : Animal {
+    let isTame : Bool
+    init(isTame: Bool ) {
+        self.isTame = isTame
+        super.init(legs: 4)
+    }
+    override func speak() {
+        print ("Cat Is Speaking Now")
+    }
+}
+class Persian : Cat {
+    override func speak() {
+        print("Persian Is Speaking Now")
+    }
+}
+class Lion : Cat {
+    override func speak() {
+        print("Lion Is Speaking Now")
+    }
+}
