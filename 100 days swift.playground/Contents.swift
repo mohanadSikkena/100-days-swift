@@ -1,138 +1,115 @@
 import Cocoa
-// day 12
+// day 13
 
-class Game{
-    var score = 0 {
-        didSet{
-            print ("score Was \(oldValue)")
-            print ("new score Is \(score)")
-        }
+protocol Vechile {
+    func travel(distance:Int)
+    func estimateTime(for distance:Int)->Int
+}
+struct Car : Vechile {
+    func estimateTime(for distance: Int) -> Int {
+        distance/50
+    }
+    func travel(distance: Int) {
+        print("I'm travelling \(distance) KM")
     }
 }
-let game:Game = Game()
-game.score = 5
 
-class Employee {
-    let hours:Int
+func commute(distance:Int,using vechile:Vechile){
+    if car.estimateTime(for: distance) > 20 {
+        print("thats too slow I`m trying another car")
+    }else{
+        car.travel(distance: distance)
+    }
+}
+let car:Car = Car()
+commute(distance:1500 , using: car)
+
+struct Bicycle: Vechile {
+    func estimateTime(for distance: Int) -> Int {
+        distance / 10
+    }
+
+    func travel(distance: Int) {
+        print("I'm cycling \(distance)km.")
+    }
+}
+
+let bike = Bicycle()
+commute(distance: 50, using: bike)
+
+var quote = "   The truth is rarely pure and never simple   "
+let trimmed = quote.trimmingCharacters(in: .whitespacesAndNewlines)
+print(trimmed)
+
+extension String{
+    func trimmed()->String{
+        self.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    mutating func trim() {
+        self = self.trimmed()
+    }
+}
+let newQuote = quote.trimmed()
+print(newQuote)
+quote.trim()
+print(quote)
+
+struct Book {
+    let title: String
+    let pageCount: Int
+    let readingHours: Int
+}
+extension Book {
+    init(title: String, pageCount: Int) {
+        self.title = title
+        self.pageCount = pageCount
+        self.readingHours = pageCount / 50
+    }
+}
+let guests = ["Mario", "Luigi", "Peach"]
+
+print (guests.isEmpty == false)
+
+extension Collection {
+    var isNotEmpty : Bool {
+        self.isEmpty == false
+    }
+}
+print (guests.isNotEmpty)
+
+protocol Person {
+    var name: String { get }
+    func sayHello()
+}
+
+extension Person {
+    func sayHello (){
+        print("Hello I`m \(name)")
+    }
+}
+
+// check point 8
+
+protocol Property {
+    var rooms:Int {get set}
+    var cost:Int {get set}
+    var realestateName :String {get set}
+    func summary()
+}
+extension Property {
+    func summary(){
+        print ("The Summary of the is")
+    }
+}
+struct House : Property{
+    var cost: Int
+    var realestateName: String
+    var rooms: Int
     
-    init(hours: Int) {
-        self.hours = hours
-    }
-    func printSummary() {
-        print("I work \(hours) hours a day.")
-    }
-    func work(){
-        print("I'm writing code for \(hours) hours.")
-    }
 }
-class Developer : Employee {
-    
-    override func work(){
-        print("I'm A developer writing code for \(hours) hours.")
-    }
-}
-class Manager : Employee {
-    override func work() {
-            print("I'm A manager going to meetings for \(hours) hours.")
-        }
-}
-let ahmed = Developer(hours: 10)
-let mohammed = Manager(hours: 5)
-ahmed.work()
-mohammed.work()
-ahmed.printSummary()
-mohammed.printSummary()
-
-class Vechile{
-    let isElectric :Bool
-    init(isElectric: Bool) {
-        self.isElectric = isElectric
-    }
+struct Office : Property{
+    var cost: Int
+    var realestateName: String
+    var rooms: Int
 }
 
-class Car : Vechile {
-    let isComfort :Bool
-    init(isComfort: Bool ,isElectric:Bool) {
-        self.isComfort = isComfort
-        super.init(isElectric: isElectric)
-    }
-}
-
-let car :Car = Car(isComfort: true, isElectric:true)
-
-class User {
-    var username = "Anonymous"
-    init(username: String = "Anonymous") {
-        self.username = username
-        print("\(username) created")
-    }
-    deinit{
-        print("\(username) : Im Dead")
-    }
-}
-let user1 : User = User()
-
-//user1.username = "ahmed"
-
-for i in 1...3{
-    let newUser = User()
-}
-var users = [User]()
-
-for i in 1 ... 5 {
-    let user = User()
-    users.append(user)
-}
-users.removeAll()
-
-
-//Checkpoint 7
-
-
-
-class Animal {
-    let legs :Int
-    init(legs: Int) {
-        self.legs = legs
-    }
-    func speak(){
-        print("Animal Is Speaking Now")
-    }
-}
-
-class Dog : Animal{
-    override func speak() {
-        print("Dog Is Speaking Now")
-    }
-}
-class Corgi : Dog {
-    override func speak() {
-        print ("Corgi Is Speaking Now")
-    }
-}
-class Poodle : Dog {
-    override func speak() {
-        print ("Poodle Is Speaking Now")
-    }
-}
-
-class Cat : Animal {
-    let isTame : Bool
-    init(isTame: Bool ) {
-        self.isTame = isTame
-        super.init(legs: 4)
-    }
-    override func speak() {
-        print ("Cat Is Speaking Now")
-    }
-}
-class Persian : Cat {
-    override func speak() {
-        print("Persian Is Speaking Now")
-    }
-}
-class Lion : Cat {
-    override func speak() {
-        print("Lion Is Speaking Now")
-    }
-}
