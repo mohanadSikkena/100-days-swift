@@ -1,115 +1,95 @@
 import Cocoa
-// day 13
+// day 14
+let opposites = [
+    "Mario": "Wario",
+    "Luigi": "Waluigi"
+]
 
-protocol Vechile {
-    func travel(distance:Int)
-    func estimateTime(for distance:Int)->Int
-}
-struct Car : Vechile {
-    func estimateTime(for distance: Int) -> Int {
-        distance/50
-    }
-    func travel(distance: Int) {
-        print("I'm travelling \(distance) KM")
-    }
+if let peachOpposite = opposites["Peach"] {
+    print("peach opposite is \(peachOpposite)")
 }
 
-func commute(distance:Int,using vechile:Vechile){
-    if car.estimateTime(for: distance) > 20 {
-        print("thats too slow I`m trying another car")
+if let marioOpposite = opposites["Mario"] {
+    print("mario opposite is \(marioOpposite)")
+}
+
+var userName:String? = nil
+
+if let nameUnWrapped = userName{
+    print ("succes")
+}else{
+    print("failed")
+}
+
+let number : Int? = 5
+
+if let number = number{
+    print ("success")
+    print(number)
+}
+
+
+
+func test()->Int{
+    var myVar :Int? = 20
+    
+    if let myVar = myVar{
+        print("if let su")
     }else{
-        car.travel(distance: distance)
+        print ("if let fail")
     }
-}
-let car:Car = Car()
-commute(distance:1500 , using: car)
-
-struct Bicycle: Vechile {
-    func estimateTime(for distance: Int) -> Int {
-        distance / 10
+    print(myVar)
+    
+    guard let myVar = myVar else {
+        return 5
     }
-
-    func travel(distance: Int) {
-        print("I'm cycling \(distance)km.")
-    }
-}
-
-let bike = Bicycle()
-commute(distance: 50, using: bike)
-
-var quote = "   The truth is rarely pure and never simple   "
-let trimmed = quote.trimmingCharacters(in: .whitespacesAndNewlines)
-print(trimmed)
-
-extension String{
-    func trimmed()->String{
-        self.trimmingCharacters(in: .whitespacesAndNewlines)
-    }
-    mutating func trim() {
-        self = self.trimmed()
-    }
-}
-let newQuote = quote.trimmed()
-print(newQuote)
-quote.trim()
-print(quote)
-
-struct Book {
-    let title: String
-    let pageCount: Int
-    let readingHours: Int
-}
-extension Book {
-    init(title: String, pageCount: Int) {
-        self.title = title
-        self.pageCount = pageCount
-        self.readingHours = pageCount / 50
-    }
-}
-let guests = ["Mario", "Luigi", "Peach"]
-
-print (guests.isEmpty == false)
-
-extension Collection {
-    var isNotEmpty : Bool {
-        self.isEmpty == false
-    }
-}
-print (guests.isNotEmpty)
-
-protocol Person {
-    var name: String { get }
-    func sayHello()
-}
-
-extension Person {
-    func sayHello (){
-        print("Hello I`m \(name)")
-    }
-}
-
-// check point 8
-
-protocol Property {
-    var rooms:Int {get set}
-    var cost:Int {get set}
-    var realestateName :String {get set}
-    func summary()
-}
-extension Property {
-    func summary(){
-        print ("The Summary of the is")
-    }
-}
-struct House : Property{
-    var cost: Int
-    var realestateName: String
-    var rooms: Int
+    print(myVar)
+    return 10
     
 }
-struct Office : Property{
-    var cost: Int
-    var realestateName: String
-    var rooms: Int
+print(test())
+
+let captains = [
+    "Enterprise": "Picard",
+    "Voyager": "Janeway",
+    "Defiant": "Sisko"
+]
+let newCaptain = captains["Rmadrid"] ?? "L.Modric"
+print(newCaptain)
+
+let captainsList = [String]()
+print(captainsList.randomElement() ?? "L.Modric")
+
+let input = "as"
+
+let intNumber = Int(input) ?? 0
+print(intNumber)
+
+let names = ["Arya", "Bran", "Robb", "Sansa"]
+let chosen = names.randomElement()?.uppercased() ?? "No One"
+
+print(chosen)
+
+enum UserErrors : Error {
+    case badId , networkFailed
 }
 
+func getUser(id:Int) throws ->String {
+ 
+    throw UserErrors.networkFailed
+}
+if let user = try? getUser(id: 25) {
+    print ("user \(user)")
+}
+
+let user = (try? getUser(id: 12)) ?? "nil"
+print(user)
+
+//Checkpoint 9
+
+func randomOptional (arr:[Int]?)->Int{
+    arr?.randomElement() ?? Int.random(in: 1...100)
+}
+
+let y :[Int]? = nil
+print(randomOptional(arr: y))
